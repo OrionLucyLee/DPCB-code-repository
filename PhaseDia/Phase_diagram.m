@@ -9,30 +9,47 @@ KA2 = 1000;     %Dissociation constant of serine binding to active Tsr, unit:uM
 KI3 = 1500;		%Dissociation constant of MeAsp binding to inactive Tsr, unit:uM
 KA3 = 3500;     %Dissociation constant of MeAsp binding to active Tsr, unit:uM
 
-coff_ita=10; 
+coff_ita=15; 
 cm=2000;       % loading conc. of MeAsp
 gm=cm/3;       % drop of MeAsp gradient
 
 
 %% parameters for log-normal distribution of Tar/Tsr
-f_c= 0.1;   % f_c
-mu = -0.843; 
-sigma = .97; 
+% f_c= 0.05;   % f_c
+% mu = -0.7; 
+% sigma = .75; 
+% 
+% r0=logninv(1-f_c,mu,sigma);
+% rL=logninv(f_c,mu,sigma);
+% 
+% % plot the log-normal distribution
+% xx = 10.^(-4:.1:2);
+% pdf = lognpdf(xx, mu,sigma);
+% figure('color','w'); 
+% set(gcf,'unit','centimeters','position',[10 5 4,3]);
+% plot(log(xx),xx.*pdf);
+% xlim([0,1]); set(gca,'Fontsize',9); box on;
+% xlabel('ln(Tar/Tsr)'); ylabel('Probability');    
+% 
+%% parameters for gamma distribution of Tar/Tsr
+f_c= 0.05;   % f_c
+mu = 2; 
+sigma = .35; 
 
+r0=gaminv(1-f_c,mu,sigma);
+rL=gaminv(f_c,mu,sigma);
 
-%% plot the log-normal distribution
-xx = exp(-5:.1:5);
-pdf = lognpdf(xx, mu,sigma);
+% plot the log-normal distribution
+xx = 0:0.02:2;
+pdf = gampdf(xx, mu,sigma);
 figure('color','w'); 
-set(gcf,'unit','centimeters','position',[10 5 4,3]);
-plot(log(xx),xx.*pdf);
-xlim([-4,2.5]); set(gca,'Fontsize',9); box on;
-xlabel('ln(Tar/Tsr)'); ylabel('Probability');    
+set(gcf,'unit','centimeters','position',[10 5 8,5]);
+plot(xx,pdf);
+xlim([0,2]); set(gca,'Fontsize',12); box on;
+xlabel('Tar/Tsr'); ylabel('Pdf');    
 
 
 %%  phase diagram
-r0=logninv(1-f_c,mu,sigma);
-rL=logninv(f_c,mu,sigma);
 
 % r_min = r_1
 x=2.^(0:15);   % c_min
