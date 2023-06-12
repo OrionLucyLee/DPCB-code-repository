@@ -15,9 +15,8 @@ gm=cm/3;       % drop of MeAsp gradient
 
 
 %% parameters for log-normal distribution of Tar/Tsr
-mu = -0.843; 
-sigma = .97; 
-
+mu = -0.7; 
+sigma = .75;
 
 %% plot the log-normal distribution
 xx = exp(-5:.1:5);
